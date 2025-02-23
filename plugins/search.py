@@ -13,7 +13,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 async def send_message_in_chunks(client, chat_id, text):
     max_length = 4096  # Maximum length of a message
     for i in range(0, len(text), max_length):
-        msg = await client.send_message(chat_id=chat_id, text=text[i:i+max_length])
+        msg = await client.send_message (chat_id=chat_id, text=text[i:i+max_length] head+results )
         asyncio.create_task(delete_after_delay(msg, 1800))
 
 
@@ -55,7 +55,7 @@ async def search(bot, message):
           buttons = []
           for movie in movies: 
               buttons.append([InlineKeyboardButton(movie['title'], callback_data=f"recheck_{movie['id']}")])
-          msg = await message.reply_photo(photo="",
+          msg = await message.reply_photo(photo="https://i.imghippo.com/files/GS3653JdU.jpg",
                                           caption="<b><I>🔻 I Couldn't find anything related to Your Query😕.\n🔺 Did you mean any of these?</I></b>", 
                                           reply_markup=InlineKeyboardMarkup(buttons))
        else:
@@ -78,7 +78,7 @@ async def recheck(bot, update):
     except:
        return await update.message.delete(2)       
     if clicked != typed:
-       return await update.answer("That's not for you! 👀", show_alert=True)
+       return await update.answer("That's not for you! 👀", show_alert=False)
 
     m=await update.message.edit("**Searching..💥**")
     id      = update.data.split("_")[-1]
@@ -116,5 +116,5 @@ async def request(bot, update):
     url   = "https://www.imdb.com/title/tt"+id
     text  = f"#RequestFromYourGroup\n\nName: {name}\nIMDb: {url}"
     await bot.send_message(chat_id=admin, text=text, disable_web_page_preview=True)
-    await update.answer("✅ Request Sent To Admin", show_alert=True)
+    await update.answer("✅ Request Sent To Admin", show_alert=False)
     await update.message.delete(60)
