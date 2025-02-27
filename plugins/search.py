@@ -55,7 +55,9 @@ async def search(bot, message):
           buttons = []
           for movie in movies: 
               buttons.append([InlineKeyboardButton(movie['title'], callback_data=f"recheck_{movie['id']}")])
-          
+          msg = await message.reply_photo(photo="",
+                                          caption="<b><I>🔻 I Couldn't find anything related to Your Query😕.\n🔺 Did you mean any of these?</I></b>", 
+                                          reply_markup=InlineKeyboardMarkup(buttons))
        else:
           await send_message_in_chunks(bot, message.chat.id, head+results)
     except:
