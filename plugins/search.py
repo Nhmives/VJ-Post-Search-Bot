@@ -41,7 +41,7 @@ async def search(bot, message):
     if message.text.startswith("/"):
        return    
     query   = message.text 
-    head    = f"<u>⭕ Here is the results {message.from_user.mention} 👇\n\n💢 Powered By </u> <b><I>@insightweav ❗</I></b>\n\n"
+    head + results   = f"<u>⭕ Here is the results {message.from_user.mention} 👇\n\n💢 Powered By </u> <b><I>@insightweav ❗</I></b>\n\n"
     results = ""
     try:
        for channel in channels:
