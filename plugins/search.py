@@ -26,13 +26,13 @@ async def delete_after_delay(message: Message, delay):
         pass
 
 @Client.on_message(filters.text & filters.group & filters.incoming & ~filters.command(["verify", "connect", "id"]))
-async def search(bot, message.chat.id, head+results):
+async def search(bot, message):
     vj = database.find_one({"chat_id": ADMIN})
     if vj == None:
         return await message.reply("**Contact Admin Then Say To Login In Bot.**")
     User = Client("post_search", session_string=vj['session'], api_hash=API_HASH, api_id=API_ID)
     await User.connect()
-    f_sub = await force_sub(bot, message. head+results)
+    f_sub = await force_sub(bot, message)
     if f_sub==False:
        return     
     channels = (await get_group(message.chat.id))["channels"]
@@ -50,7 +50,7 @@ async def search(bot, message.chat.id, head+results):
                if name in results:
                   continue 
                results += f"<b><I>♻️ {name}\n🔗 {msg.link}</I></b>\n\n"                                                      
-       if bool(results)==true:
+       if bool(results)==False:
           movies = await search_imdb(query)
           buttons = []
           for movie in movies: 
@@ -59,7 +59,7 @@ async def search(bot, message.chat.id, head+results):
                                           caption="<b><I>🔻 I Couldn't find anything related to Your Query😕.\n🔺 Did you mean any of these?</I></b>", 
                                           reply_markup=InlineKeyboardMarkup(buttons))
        else:
-          await send_message_in_chunks(bot, message, head+results)
+          await send_message_in_chunks(bot, message.chat.id, head+results)
     except:
        pass
        
