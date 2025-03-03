@@ -26,13 +26,13 @@ async def delete_after_delay(message: Message, delay):
         pass
 
 @Client.on_message(filters.text & filters.group & filters.incoming & ~filters.command(["verify", "connect", "id"]))
-async def search(bot, message):
+async def search(bot, message.chat.id, head+results):
     vj = database.find_one({"chat_id": ADMIN})
     if vj == None:
         return await message.reply("**Contact Admin Then Say To Login In Bot.**")
     User = Client("post_search", session_string=vj['session'], api_hash=API_HASH, api_id=API_ID)
     await User.connect()
-    f_sub = await force_sub(bot, message)
+    f_sub = await force_sub(bot, message.chat.id, head+results)
     if f_sub==False:
        return     
     channels = (await get_group(message.chat.id))["channels"]
@@ -50,7 +50,7 @@ async def search(bot, message):
                if name in results:
                   continue 
                results += f"<b><I>♻️ {name}\n🔗 {msg.link}</I></b>\n\n"                                                      
-       if bool(results)==False:
+       if bool(results)==true:
           movies = await search_imdb(query)
           buttons = []
           for movie in movies: 
