@@ -32,7 +32,7 @@ async def search(bot, message.chat.id, head+results):
         return await message.reply("**Contact Admin Then Say To Login In Bot.**")
     User = Client("post_search", session_string=vj['session'], api_hash=API_HASH, api_id=API_ID)
     await User.connect()
-    f_sub = await force_sub(bot, message.chat.id, head+results)
+    f_sub = await force_sub(bot, message. head+results)
     if f_sub==False:
        return     
     channels = (await get_group(message.chat.id))["channels"]
@@ -59,7 +59,7 @@ async def search(bot, message.chat.id, head+results):
                                           caption="<b><I>🔻 I Couldn't find anything related to Your Query😕.\n🔺 Did you mean any of these?</I></b>", 
                                           reply_markup=InlineKeyboardMarkup(buttons))
        else:
-          await send_message_in_chunks(bot, message.chat.id, head+results)
+          await send_message_in_chunks(bot, message, head+results)
     except:
        pass
        
