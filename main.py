@@ -2,8 +2,15 @@
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
 
-from client import Bot
+from pyrogram import Client
+import os
 
-print("Bot Started 👍 Powered By @insightweav")
-Bot().run()
+app = Client(
+    "bot",
+    api_id=os.getenv("API_ID"),
+    api_hash=os.getenv("API_HASH"),
+    bot_token=os.getenv("BOT_TOKEN"),
+    plugins=dict(root="plugins")  # Loads all plugins in the `plugins` folder
+)
 
+app.run()
