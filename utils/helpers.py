@@ -71,7 +71,7 @@ async def search_imdb(query):
        movie = ia.get_movie(query)
        return movie["title"]
     except:
-       movies = ia.search_movie(query, results=10)
+       movies = ia.search_movie(query, results=2)
        list = []
        for movie in movies:
            title = movie["title"]
